@@ -1,5 +1,7 @@
 package com.spaceflightnews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,11 +13,21 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "article_id")
+    @JsonIgnore
     private Article article;
+    private String provider;
 
     /**
      * getters and setters
      */
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
 
     public Integer getId() {
         return id;

@@ -1,13 +1,12 @@
-package com.spaceflightnews.model;
+package com.spaceflightnews.model.dto;
 
-import javax.persistence.*;
+import com.spaceflightnews.model.Event;
+import com.spaceflightnews.model.Launch;
+
 import java.util.List;
 
-@Entity
-public class Article {
+public class ArticleDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean featured;
     private String title;
@@ -17,16 +16,8 @@ public class Article {
     private String summary;
     private String publishedAt;
     private String updatedAt;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
     private List<Launch> launches;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
     private List<Event> events;
-
-    /**
-     * getters and setters
-     */
 
     public Boolean getFeatured() {
         return featured;
@@ -42,6 +33,22 @@ public class Article {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Launch> getLaunches() {
+        return launches;
+    }
+
+    public void setLaunches(List<Launch> launches) {
+        this.launches = launches;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     public Integer getId() {
@@ -106,21 +113,5 @@ public class Article {
 
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setLaunches(List<Launch> launches) {
-        this.launches = launches;
-    }
-
-    public List<Launch> getLaunches() {
-        return launches;
     }
 }
