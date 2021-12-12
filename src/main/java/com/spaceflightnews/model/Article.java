@@ -7,7 +7,6 @@ import java.util.List;
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean featured;
     private String title;
@@ -122,5 +121,22 @@ public class Article {
 
     public List<Launch> getLaunches() {
         return launches;
+    }
+
+    @Override
+    public String toString() {
+        return "Article { " +
+                "id=" + id +
+                ", featured=" + featured +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", newsSite='" + newsSite + '\'' +
+                ", summary='" + summary + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", launches=" + launches +
+                ", events=" + events +
+                '}';
     }
 }
