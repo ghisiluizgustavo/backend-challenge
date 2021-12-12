@@ -10,10 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -34,5 +32,20 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDTO> getOneArticle(@PathVariable Integer id){
         return articleService.findOneArticle(id);
+    }
+
+    @PostMapping()
+    public ResponseEntity<ArticleDTO> postNewArticle(@RequestBody ArticleDTO articleDTO, UriComponentsBuilder uri){
+        return articleService.postNewArticle(articleDTO, uri);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ArticleDTO> updateArticle(@RequestBody ArticleDTO articleDTO, @PathVariable Integer id){
+        return articleService.updateArticle(articleDTO, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ArticleDTO> deleteArticle(@PathVariable Integer id){
+        return articleService.deleteArticle(id);
     }
 }
