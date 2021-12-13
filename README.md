@@ -47,4 +47,7 @@ variáveis de ambiente:**
 
 <hr>
 
+Vídeo demonstração da API:
+https://www.loom.com/share/d281887713324c5c9e8829d0f9540235
+
 >This is a challenge by [Coodesh](https://coodesh.com/) 👨‍💻
