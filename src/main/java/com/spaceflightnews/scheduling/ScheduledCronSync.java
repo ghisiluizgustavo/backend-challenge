@@ -1,8 +1,10 @@
 package com.spaceflightnews.scheduling;
 
 import com.spaceflightnews.model.Article;
+import com.spaceflightnews.model.Launch;
 import com.spaceflightnews.model.dto.ArticleDTO;
 import com.spaceflightnews.respository.ArticleRepository;
+import com.spaceflightnews.respository.LaunchRespository;
 import com.spaceflightnews.service.ArticleService;
 import org.apache.coyote.Response;
 import org.slf4j.Logger;
@@ -23,11 +25,17 @@ public class ScheduledCronSync {
 
     @Autowired
     private ArticleRepository repository;
+
+    @Autowired
+    private LaunchRespository launchRespository;
+
     private List<Article> articlesApi, articlesDb;
+    private List<Launch> launches = new ArrayList<>();
     private Map<Integer, Article> articlesApiHmp, articlesDbHmp;
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledCronSync.class);
 
-    @Scheduled(cron = "0 0 9 * * *")
+//    @Scheduled(cron = "0 0 9 * * *")
+    @Scheduled(fixedRate = 50000)
     public void scheduledSync() {
         if(verificationInformations()){
             sychronizeDatas();
@@ -43,6 +51,7 @@ public class ScheduledCronSync {
     }
 
     private void sychronizeDatas() {
+        verifyHaveLaunchs();
         LOGGER.info("starting sync between API and Database...");
         articlesApiHmp = articlesApi.stream()
                 .collect(Collectors.toMap(Article::getId, Function.identity()));
@@ -53,8 +62,20 @@ public class ScheduledCronSync {
         articlesDbHmp.forEach((integer, article) -> verificationHaveInMap(integer));
 
         repository.saveAll(articlesApiHmp.values());
+        launchRespository.saveAll(launches);
         LOGGER.info("the following articles have been synced with the database: {} \n",
                 articlesApiHmp.values().toString());
+    }
+
+    private void verifyHaveLaunchs() {
+        for(Article article : articlesApi){
+            if(article.getLaunches().size() > 0){
+                launches.addAll(article.getLaunches());
+                launches.forEach(launch -> launch.setArticle(article));
+                article.setLaunches(new ArrayList<>());
+            }
+        }
+        System.out.println(articlesApi.toString());
     }
 
     private void verificationHaveInMap(Integer integer) {
