@@ -34,8 +34,7 @@ public class ScheduledCronSync {
     private Map<Integer, Article> articlesApiHmp, articlesDbHmp;
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledCronSync.class);
 
-//    @Scheduled(cron = "0 0 9 * * *")
-    @Scheduled(fixedRate = 50000)
+    @Scheduled(cron = "0 0 9 * * *")
     public void scheduledSync() {
         if(verificationInformations()){
             sychronizeDatas();
