@@ -26,7 +26,7 @@ funcionalidades de um CRUD para artigos de viagem espacial
 
 **1. Clone o repositório**
    ```
-   git clone https://github.com/ghisiluizgustavo/market-control.git
+   git clone https://github.com/ghisiluizgustavo/backend-challenge.git
    ```
 **2. Abra o projeto no IntelliJ e vá em *Edit Configurations***
 
